@@ -1,11 +1,23 @@
+using Microsoft.AspNetCore.Mvc;
 namespace BibliotecMVC.Controllers
-
-public class BibliotecMVC.Controllers;
-public class LoginController : Controllers
+{
+public class LoginController : Controller
 {
     [HttpGet]
     public IActionResult Index()
     {
-        return view();
+        return View();
     }
+
+//recebe s dados enviados pelo formulário
+    [HttpPost]
+
+    public IActionResult Index(LoginViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+        }
+}
 }

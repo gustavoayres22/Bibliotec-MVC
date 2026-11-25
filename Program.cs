@@ -1,8 +1,6 @@
 using BibliotecMVC.Data;
-using icrosotft.EntityFrameworkCore;
-{
-    
-}
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;   
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +12,27 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("ConexaoPadrao")
     )
 );
+
+// Configura a autenticação utilizando coockies
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddIdentityCookies(options =>
+    {
+
+        //Página para qual o usuario que será direcionado caso não esteja autenticado
+        options.LoginPath = "/Login/Index";
+
+        //Página para qualo usuário será direcionado caso nça esteja permissão
+        options.AcessDeniedPath = "/Login/AcessoNegado";
+
+        //Define o tempo de validde de auntenticação
+        //Inatividade
+        options.ExpireTimeSpan = TimeSpan.FromHours(2);
+
+        //Remova a validade da autenticação conforme a atividade do usuário
+        options.SlidingExpiration = true;
+    });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -28,13 +47,19 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+//A ordem é importate => primeiro identifica o usuário, depois ve se ele tem permissão
+
+//Identifica o usuáio do cookie de autenticação
+app.UseAuthentication();
+
+//Verifica se o usuário possuipara acesar o recurso solicitado
 app.UseAuthorization();
 
 app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Login}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 
