@@ -1,8 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
 
-usingSystem.ComponentetModel.DataAnnotations;
-
 namespace BibliotecMVC.ViewModels;
 
 public class LoginViewModel
@@ -13,6 +11,5 @@ public class LoginViewModel
     public string Email {get; set;} = string.Empty;
 
     [Required(ErrorMessage = "Informe a senha.")]
-
     public string Senha {get; set;} = string.Empty;
 }

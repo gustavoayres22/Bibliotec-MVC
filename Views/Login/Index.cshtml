@@ -29,7 +29,7 @@
 
         <form asp-controller="Login" asp-action="Index" method="post">
 
-            <div asp-validation-summary="ModeOnly" class="mensagem-erro"></div>
+            <div asp-validation-summary="ModelOnly" class="mensagem-erro"></div>
 
             <div class="campo">
                 <label for="email">E-mail</label>
@@ -41,9 +41,9 @@
             </div>
 
             <div class="campo">
-                <label for="senha">Senha</label>
+                <label for="Senha">Senha</label>
                 <div class="campo-senha">
-                    <input asp-for="senha" required type="password" id="senha" placeholder="************">
+                    <input asp-for="Senha" required type="password" id="senha" placeholder="************">
                     <button id="mostrar-senha" class="botao-olho">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
